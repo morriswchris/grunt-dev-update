@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Grunt-dev-update by pgilad</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Grunt-dev-update</h1>
+        <p class="header">Automatically update your npm package.json devDependencies with a grunt task</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/pgilad/grunt-dev-update/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/pgilad/grunt-dev-update/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/pgilad/grunt-dev-update">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/pgilad">pgilad</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="grunt-dev-update" class="anchor" href="#grunt-dev-update"><span class="octicon octicon-link"></span></a>grunt-dev-update</h1>
+
+<blockquote>
+<p>Automatically update your npm package.json devDependencies with a grunt task</p>
+
+<h4>
+<a name="under-construction" class="anchor" href="#under-construction"><span class="octicon octicon-link"></span></a>UNDER CONSTRUCTION</h4>
+</blockquote>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>This plugin requires Grunt.</p>
+
+<p>If you haven't used <a href="http://gruntjs.com/">Grunt</a> before, be sure to check out the <a href="http://gruntjs.com/getting-started">Getting Started</a> guide, as it explains how to create a <a href="http://gruntjs.com/sample-gruntfile">Gruntfile</a> as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:</p>
+
+<pre lang="shell"><code>npm install grunt-dev-update --save-dev
+</code></pre>
+
+<p>Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">'grunt-dev-update'</span><span class="p">);</span>
+</pre></div>
+
+<p>An alternative and highly recommended way to load all grunt npm tasks is installing <code>matchdep</code>:</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">matchdep</span> <span class="o">--</span><span class="nx">save</span><span class="o">-</span><span class="nx">dev</span>
+</pre></div>
+
+<p>And then add to your grunt file:</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">require</span><span class="p">(</span><span class="s1">'matchdep'</span><span class="p">).</span><span class="nx">filterDev</span><span class="p">(</span><span class="s1">'grunt-*'</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">);</span>
+</pre></div>
+
+<h2>
+<a name="the-devupdate-task" class="anchor" href="#the-devupdate-task"><span class="octicon octicon-link"></span></a>The "devUpdate" task</h2>
+
+<h3>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h3>
+
+<p>In your project's Gruntfile, add a section named <code>devUpdate</code> to the data object passed into <code>grunt.initConfig()</code>.</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+  <span class="nx">devUpdate</span><span class="o">:</span> <span class="p">{</span>
+
+    <span class="nx">your_target</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+          <span class="c1">// Target specific options go here</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+<h3>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h3>
+
+<h4>
+<a name="optionsreportupdated" class="anchor" href="#optionsreportupdated"><span class="octicon octicon-link"></span></a>options.reportUpdated</h4>
+
+<p>Type: <code>Boolean</code>
+Default value: <code>false</code></p>
+
+<p>Whether to report an already updated package</p>
+
+<h4>
+<a name="optionsupdatetype" class="anchor" href="#optionsupdatetype"><span class="octicon octicon-link"></span></a>options.updateType</h4>
+
+<p>Type: <code>String</code>
+Default value: <code>report</code></p>
+
+<p>How devUpdate should handle the outdated packages. Valid options:</p>
+
+<p><code>report</code> - Just report that the package is outdated.</p>
+
+<p><code>prompt</code> - Prompt user to confirm update of every package</p>
+
+<p><code>force</code> - Automatically force the update for the outdated packages.</p>
+
+<h3>
+<a name="usage-examples" class="anchor" href="#usage-examples"><span class="octicon octicon-link"></span></a>Usage Examples</h3>
+
+<h4>
+<a name="default-options" class="anchor" href="#default-options"><span class="octicon octicon-link"></span></a>Default Options</h4>
+
+<p>This is a basic usage for devUpdate:</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+  <span class="nx">devUpdate</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">main</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+            <span class="c1">//should task report already updated dependencies</span>
+            <span class="nx">reportUpdated</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="c1">//can be 'force'|'report'|'prompt'</span>
+            <span class="nx">updateType</span>   <span class="o">:</span> <span class="s2">"report"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using <a href="http://gruntjs.com/">Grunt</a>.</p>
+
+<h2>
+<a name="release-history" class="anchor" href="#release-history"><span class="octicon octicon-link"></span></a>Release History</h2>
+
+<p><em>(Nothing yet)</em></p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright (c) 2013 Gilad Peleg. Licensed under the MIT license.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
